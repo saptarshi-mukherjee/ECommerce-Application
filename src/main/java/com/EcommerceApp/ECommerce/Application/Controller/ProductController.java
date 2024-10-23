@@ -8,6 +8,8 @@ import com.EcommerceApp.ECommerce.Application.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -23,5 +25,26 @@ public class ProductController {
     @GetMapping("/get/{id}")
     public ProductResponse getProductById(@PathVariable("id") Long id) {
         return prod_serve.productByID(id);
+    }
+
+
+    @GetMapping("/get")
+    public ProductResponse getProductByName(@RequestParam("name") String name) {
+        return prod_serve.productByName(name);
+    }
+
+    @GetMapping("")
+    public List<ProductResponse> getAllProducts() {
+        return prod_serve.allProducts();
+    }
+
+    @GetMapping("/get/categories")
+    public List<ProductResponse> getProductByCategory(@RequestParam("category") String category) {
+        return prod_serve.productsByCategory(category);
+    }
+
+    @GetMapping("/categories/all")
+    public List<String> getAllCategories() {
+        return prod_serve.productCategories();
     }
 }
