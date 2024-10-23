@@ -2,6 +2,7 @@ package com.EcommerceApp.ECommerce.Application.Controller;
 
 
 import com.EcommerceApp.ECommerce.Application.DTO.ProductRequestDto;
+import com.EcommerceApp.ECommerce.Application.DTO.UpdateProductRequestDto;
 import com.EcommerceApp.ECommerce.Application.Models.Product;
 import com.EcommerceApp.ECommerce.Application.Projections.ProductResponse;
 import com.EcommerceApp.ECommerce.Application.Service.ProductService;
@@ -46,5 +47,15 @@ public class ProductController {
     @GetMapping("/categories/all")
     public List<String> getAllCategories() {
         return prod_serve.productCategories();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public List<ProductResponse> deleteProductById(@PathVariable("id") long id) {
+        return prod_serve.deleteProduct(id);
+    }
+
+    @PutMapping("/put")
+    public Product updateGivenProduct(@RequestBody UpdateProductRequestDto update_prod) {
+        return prod_serve.updateProduct(update_prod.getId(),update_prod.getName(),update_prod.getCategory(),update_prod.getQuantity(),update_prod.getPrice());
     }
 }

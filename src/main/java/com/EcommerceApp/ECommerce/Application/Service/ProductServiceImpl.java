@@ -89,4 +89,26 @@ public class ProductServiceImpl implements ProductService{
         cat_list.remove(null);
         return cat_list;
     }
+
+    @Override
+    public List<ProductResponse> deleteProduct(long id) {
+        Product prod=prod_repo.fetchById(id);
+        prod_repo.delete(prod);
+        return allProducts();
+    }
+
+    @Override
+    public Product updateProduct(long id, String name, String category, int quantity, double price) {
+        Product prod=prod_repo.fetchById(id);
+        if(name!=null)
+            prod.setName(name);
+        if(category!=null)
+            prod.setCategory(category);
+        if(quantity!=0)
+            prod.setQuantity(quantity);
+        if(price!=0.0)
+            prod.setPrice(price);
+        prod=prod_repo.save(prod);
+        return prod;
+    }
 }
