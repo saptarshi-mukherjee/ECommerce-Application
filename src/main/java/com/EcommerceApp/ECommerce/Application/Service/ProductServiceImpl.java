@@ -18,13 +18,23 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product addProduct(String name, String category, int quantity, double price) {
-        Product product=new Product();
-        product.setName(name);
-        product.setCategory(category);
-        product.setQuantity(quantity);
-        product.setPrice(price);
-        product=prod_repo.save(product);
-        return product;
+        Product prod=prod_repo.fetchByName(name);
+        int new_qty=0;
+        if(prod==null) {
+            Product product = new Product();
+            product.setName(name);
+            product.setCategory(category);
+            product.setQuantity(quantity);
+            product.setPrice(price);
+            product = prod_repo.save(product);
+            return product;
+        }
+        else {
+            new_qty=prod.getQuantity()+quantity;
+            prod.setQuantity(new_qty);
+            prod=prod_repo.save(prod);
+            return prod;
+        }
     }
 
     @Override
