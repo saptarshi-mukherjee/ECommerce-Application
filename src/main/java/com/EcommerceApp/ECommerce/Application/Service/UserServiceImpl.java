@@ -29,4 +29,25 @@ public class UserServiceImpl implements UserService{
         List<User> user_list=user_repo.fetchAllUsers();
         return user_list;
     }
+
+    @Override
+    public User userByEmail(String email) {
+        User user=user_repo.fetchUserByEmail(email);
+        return user;
+    }
+
+    @Override
+    public User updateUser(long id, String name, String email, String phone, String address) {
+        User user=user_repo.fetchUserById(id);
+        if(name!=null)
+            user.setName(name);
+        if(email!=null)
+            user.setEmail(email);
+        if(phone!=null)
+            user.setPhone(phone);
+        if(address!=null)
+            user.setAddress(address);
+        user=user_repo.save(user);
+        return user;
+    }
 }
