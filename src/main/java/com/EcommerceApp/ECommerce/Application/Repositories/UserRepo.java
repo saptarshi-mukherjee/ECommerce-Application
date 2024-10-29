@@ -21,4 +21,7 @@ public interface UserRepo extends JpaRepository<User,Long> {
 
     @Query(value = "select * from users where user_id = :id", nativeQuery = true)
     public User fetchUserById(@Param("id") long id);
+
+    @Query(value = "select * from users where name=:name", nativeQuery = true)
+    public User fetchUserByName(@Param("name") String name);
 }

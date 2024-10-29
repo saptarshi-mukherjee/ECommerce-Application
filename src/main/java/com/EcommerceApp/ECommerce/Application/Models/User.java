@@ -1,9 +1,6 @@
 package com.EcommerceApp.ECommerce.Application.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity(name = "users")
@@ -13,4 +10,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long user_id;
     String name, email, phone, address;
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OneToOne
+    Cart cart;
 }

@@ -1,7 +1,9 @@
 package com.EcommerceApp.ECommerce.Application.Service;
 
 
+import com.EcommerceApp.ECommerce.Application.Models.Cart;
 import com.EcommerceApp.ECommerce.Application.Models.User;
+import com.EcommerceApp.ECommerce.Application.Repositories.CartRepo;
 import com.EcommerceApp.ECommerce.Application.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService{
     @Autowired
     UserRepo user_repo;
+    @Autowired
+    CartRepo cart_repo;
 
     @Override
     public User addUser(String name, String email, String phone, String address) {
@@ -20,6 +24,8 @@ public class UserServiceImpl implements UserService{
         user.setEmail(email);
         user.setPhone(phone);
         user.setAddress(address);
+        Cart cart=cart_repo.save(new Cart());
+        user.setCart(cart);
         user=user_repo.save(user);
         return user;
     }

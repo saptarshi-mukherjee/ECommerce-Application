@@ -19,7 +19,8 @@ public class UserController {
 
     @PostMapping("/post")
     public User createUser(@RequestBody UserRequestDto user_req) {
-        return user_serve.addUser(user_req.getName(), user_req.getEmail(), user_req.getPhone(), user_req.getAddress());
+        User user=user_serve.addUser(user_req.getName(), user_req.getEmail(), user_req.getPhone(), user_req.getAddress());
+        return user;
     }
 
     @GetMapping("/get/all")
