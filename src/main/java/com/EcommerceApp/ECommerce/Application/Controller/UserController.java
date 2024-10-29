@@ -36,4 +36,12 @@ public class UserController {
     public User updateUserInfo(@RequestBody UpdateUserRequestDto user_req) {
         return user_serve.updateUser(user_req.getId(),user_req.getName(),user_req.getEmail(),user_req.getPhone(),user_req.getAddress());
     }
+
+    @DeleteMapping("/delete")
+    public String deleteUserInfo(@RequestParam("email") String email) {
+        if(user_serve.deleteUser(email))
+            return "user deleted successfully";
+        else
+            return "user not present and could not be deleted";
+    }
 }

@@ -11,4 +11,5 @@ public interface UserService {
     public List<User> allUsers();
     public User userByEmail(String email);
     public User updateUser(long id, String name, String email, String phone, String address);
+    public boolean deleteUser(String email);
 }

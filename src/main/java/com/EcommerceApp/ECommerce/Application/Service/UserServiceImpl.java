@@ -50,4 +50,14 @@ public class UserServiceImpl implements UserService{
         user=user_repo.save(user);
         return user;
     }
+
+    @Override
+    public boolean deleteUser(String email) {
+        User user=user_repo.fetchUserByEmail(email);
+        if(user!=null) {
+            user_repo.delete(user);
+            return true;
+        }
+        return false;
+    }
 }
