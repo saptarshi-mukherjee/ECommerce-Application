@@ -61,7 +61,28 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public OrderResponseDto orderInfo(String user_name, long order_id) {
+        OrderResponseDto order_response=new OrderResponseDto();
+        List<Object[]> orders=order_repo.fetchAllOrders(user_name,order_id);
+        order_response.setDelivery_address((String) orders.get(0)[0]);
+        order_response.setDate((String)orders.get(0)[1]);
+        order_response.setOrder_value((Double)orders.get(0)[2]);
+        List<String> prod=new ArrayList<>();
+        for(Object[] obj : orders) {
+            prod.add((String)obj[3]);
+        }
+        order_response.setProd_name(prod);
+        return order_response;
+    }
+
+    @Override
     public List<OrderResponseDto> allOrders(String user_name) {
-        return List.of();
+        List<Object[]> order_id_list=order_repo.fetchAllOrderIds(user_name);
+        List<OrderResponseDto> order_response_list=new ArrayList<>();
+        for(Object[] id : order_id_list) {
+            OrderResponseDto order_response=orderInfo(user_name, (Long)id[0]);
+            order_response_list.add(order_response);
+        }
+        return order_response_list;
     }
 }
