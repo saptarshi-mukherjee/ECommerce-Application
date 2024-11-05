@@ -39,4 +39,9 @@ public interface ProductRepo  extends JpaRepository<Product,Long> {
     @Query(value = "select * from products \n" +
             "where name=:name and id=:id", nativeQuery = true)
     public Product fetchProductByNameAndId(@Param("name") String name, @Param("id") long id);
+
+    @Query(value = "select id\n" +
+            "from products \n" +
+            "where name=:prod_name", nativeQuery = true)
+    public Long fetchProductId(@Param("prod_name") String prod_name);
 }

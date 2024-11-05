@@ -18,6 +18,20 @@ public interface CartRepo extends JpaRepository<Cart,Long> {
             "on u.cart_id=cp.carts_id\n" +
             "join products as prod\n" +
             "on cp.products_id=prod.id\n" +
-            "where u.user_id=:id and u.name=:name", nativeQuery = true)
-    public List<Object[]> fetchCartOfUser(@Param("id") long id, @Param("name") String name);
+            "where u.name=:name", nativeQuery = true)
+    public List<Object[]> fetchCartOfUser(@Param("name") String name);
+
+    @Query(value = "select prod.name\n" +
+            "from users as u\n" +
+            "join carts_products as cp\n" +
+            "on u.cart_id=cp.carts_id\n" +
+            "join products as prod\n" +
+            "on cp.products_id=prod.id\n" +
+            "where u.name=:name", nativeQuery = true)
+    public List<Object[]> fetchCartOfUserByName(@Param("name") String name);
+
+    @Query(value = "select cart_id\n" +
+            "from users\n" +
+            "where name=:user_name", nativeQuery = true)
+    public Long fetchCartId(@Param("user_name") String user_name);
 }
